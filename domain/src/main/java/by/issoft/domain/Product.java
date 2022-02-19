@@ -18,6 +18,10 @@ public class Product {
         this.price = price;
     }
 
+    public Product(String name) {
+        this.name = name;
+    }
+
     public void setRate(double rate) {
         Preconditions.checkArgument(rate >= MIN_RATE && rate <= MAX_RATE, "Invalid rate value");
         this.rate = rate;
@@ -51,5 +55,10 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hash(name, rate, price);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%11s \t %3.2f \t %6.2f", name, rate, price);
     }
 }
