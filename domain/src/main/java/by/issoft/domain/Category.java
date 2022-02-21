@@ -15,16 +15,31 @@ public class Category {
     public Category() {
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public List<Product> getProductList(){
+        return productList;
+    }
+
     public void addProduct(Product product) {
-        if (product!=null) {
+        if (product != null) {
             this.productList.add(product);
         }
     }
 
     public void addAllProducts(List<Product> productList) {
-        if (productList!=null) {
-                this.productList.addAll(productList);
-            }
+        if (productList != null) {
+            this.productList.addAll(productList);
+        }
     }
 
+    @Override
+    public String toString() {
+        return "Category{" +
+                "name='" + name + '\'' +
+                ", productList=" + productList +
+                '}';
+    }
 }

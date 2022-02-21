@@ -3,7 +3,7 @@ package by.issoft.domain.categories;
 import by.issoft.domain.Category;
 
 public class MilkCategory extends Category {
-    public MilkCategory(String name) {
-        super("milk");
+    public MilkCategory() {
+        super("Milk");
     }
 }
