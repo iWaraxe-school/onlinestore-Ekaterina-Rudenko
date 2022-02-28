@@ -59,6 +59,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return String.format("%11s \t %3.2f \t %6.2f", name, rate, price);
+        return String.format("\n%11s \t %3.2f \t %6.2f", name, rate, price);
     }
 }
