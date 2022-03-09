@@ -15,12 +15,12 @@ public class StoreComparator {
     public void sortProducts(List<Product> products, Map<String, String> typeOrderMap) {
         List<Product> productList = new ArrayList<>(products);
         for (Map.Entry<String, String> entry : typeOrderMap.entrySet()) {
-            productList.sort(choseComparator(entry));
+            productList.sort(chooseComparator(entry));
             System.out.println("by " + entry.getKey() + " " + entry.getValue() + ": \n" + productList);
         }
     }
 
-    protected Comparator<Product> choseComparator(Map.Entry<String, String> entry) {
+    protected Comparator<Product> chooseComparator(Map.Entry<String, String> entry) {
         String field = entry.getKey();
         String value = entry.getValue();
 
