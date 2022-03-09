@@ -8,20 +8,11 @@ import by.issoft.store.helper.StoreHelper;
 import java.util.List;
 import java.util.Map;
 
-public class Store implements Cloneable{
+public class Store{
     Map<Category, Integer> categoryIntegerMap;
 
     public Store() {
         this.categoryIntegerMap = fillCategoriesWithProducts();
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    public Map<Category, Integer> getCategoryIntegerMap() {
-        return categoryIntegerMap;
     }
 
     public void showShopInfo() {

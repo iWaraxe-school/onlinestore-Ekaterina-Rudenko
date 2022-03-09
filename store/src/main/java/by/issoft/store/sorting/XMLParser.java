@@ -11,7 +11,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class XMLParser {
-    private XMLInputFactory inputFactory;
+    public static final String TEXT_VALIDATION = "(asc|desc)";
+    private final XMLInputFactory inputFactory;
     Map<String, String> typeOrderMap;
 
     public XMLParser() {
@@ -29,7 +30,7 @@ public class XMLParser {
         String name;
         try (FileInputStream inputStream = new FileInputStream(filePath)) {
             reader = inputFactory.createXMLStreamReader(inputStream);
-            if (reader.hasNext()) {
+            while (reader.hasNext()) {
                 int type = reader.next();
                 if (type == XMLStreamConstants.START_ELEMENT) {
                     name = reader.getLocalName();
@@ -37,10 +38,7 @@ public class XMLParser {
                         typeOrderMap = buildMap(reader);
                     }
                 }
-            } else {
-                System.out.println("XML file is empty");
             }
-
         } catch (FileNotFoundException e) {
             System.out.println("Error in StAX parser, XML file wasn't found " + "\n" + e);
         } catch (XMLStreamException e) {
@@ -55,17 +53,19 @@ public class XMLParser {
         while (reader.hasNext()) {
             int type = reader.next();
             switch (type) {
-                case XMLStreamConstants.START_ELEMENT:
+                case XMLStreamConstants.START_ELEMENT -> {
                     name = reader.getLocalName();
                     String value = getXMLText(reader);
+                    validateText(value);
                     typeOrderMap.put(name, value);
-                    break;
-                case XMLStreamConstants.END_ELEMENT:
+                }
+                case XMLStreamConstants.END_ELEMENT -> {
                     name = reader.getLocalName();
-                    if(name.equals(XMLTag.SORT.toString())){
+                    if (name.equals(XMLTag.SORT.toString())) {
                         System.out.println(typeOrderMap.entrySet());
                         return typeOrderMap;
                     }
+                }
             }
         }
         throw new XMLStreamException("Unknown element in tag <sort>");
@@ -78,5 +78,11 @@ public class XMLParser {
             text = reader.getText();
         }
         return text;
+    }
+
+    private void validateText(String value) throws XMLStreamException {
+        if (!value.matches(TEXT_VALIDATION)) {
+            throw new XMLStreamException("Invalid text");
+        }
     }
 }

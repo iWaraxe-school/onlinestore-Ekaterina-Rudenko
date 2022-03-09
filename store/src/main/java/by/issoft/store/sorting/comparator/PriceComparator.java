@@ -2,13 +2,12 @@ package by.issoft.store.sorting.comparator;
 
 import by.issoft.domain.Product;
 
-import java.math.BigDecimal;
 import java.util.Comparator;
 
 public class PriceComparator implements Comparator<Product> {
-    public int compare(Product prod1, Product prod2) {
-        BigDecimal price1 = prod1.getPrice();
-        BigDecimal price2 = prod2.getPrice();
-        return price1.compareTo(price2);
+    @Override
+    public int compare(Product o1, Product o2) {
+        return o1.getPrice().compareTo(o2.getPrice());
     }
 }
+

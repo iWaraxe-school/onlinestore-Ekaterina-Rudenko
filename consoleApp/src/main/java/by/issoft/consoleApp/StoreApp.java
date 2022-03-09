@@ -19,10 +19,5 @@ public class StoreApp {
             String command = scanner.next();
             handler.handleCommand(command, store);
         }
-
-
-
-
-
     }
 }
