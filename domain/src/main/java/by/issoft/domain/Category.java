@@ -19,7 +19,7 @@ public class Category {
         return name;
     }
 
-    public List<Product> getProductList(){
+    public List<Product> getProductList() {
         return productList;
     }
 
@@ -37,9 +37,7 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{" +
-                "name='" + name + '\'' +
-                ", productList=" + productList +
-                '}';
+        return "\nCategory " + "name='" + name + "\n" +
+                productList;
     }
 }

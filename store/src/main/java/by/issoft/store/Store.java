@@ -8,9 +8,27 @@ import by.issoft.store.helper.StoreHelper;
 import java.util.List;
 import java.util.Map;
 
-public class Store {
+public class Store{
+    Map<Category, Integer> categoryIntegerMap;
 
-    public Map<Category, Integer> fillCategoriesWithProducts() {
+    public Store() {
+        this.categoryIntegerMap = fillCategoriesWithProducts();
+    }
+
+    public void showShopInfo() {
+        for (Map.Entry<Category, Integer> entry : this.categoryIntegerMap.entrySet()) {
+            System.out.println("\nCategory: " + entry.getKey().getName() +
+                    ", quantity: " + entry.getValue().toString()
+                    + "\n--------------------------------"
+                    + "\n\t\tNAME\t RATE\t PRICE\t"
+                    + "\n--------------------------------");
+            for (Product product : entry.getKey().getProductList()) {
+                System.out.print(product);
+            }
+        }
+    }
+
+    private Map<Category, Integer> fillCategoriesWithProducts() {
         StoreHelper helper = new StoreHelper();
         Map<Category, Integer> categoryIntegerMap = helper.defineCategoriesAndQuantities();
         for (Map.Entry<Category, Integer> entry : categoryIntegerMap.entrySet()) {
