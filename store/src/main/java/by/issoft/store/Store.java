@@ -5,17 +5,28 @@ import by.issoft.domain.Product;
 import by.issoft.store.helper.RandomStorePopulator;
 import by.issoft.store.helper.StoreHelper;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Store{
+
+    private static Store instance;
     Map<Category, Integer> categoryIntegerMap;
 
-    public Store() {
+    private Store() {
         this.categoryIntegerMap = fillCategoriesWithProducts();
     }
 
-    public void showShopInfo() {
+    public static Store getInstance(){
+        if(instance == null){
+            instance = new Store();
+        }
+        return instance;
+    }
+
+    public void showStoreInfo() {
         for (Map.Entry<Category, Integer> entry : this.categoryIntegerMap.entrySet()) {
             System.out.println("\nCategory: " + entry.getKey().getName() +
                     ", quantity: " + entry.getValue().toString()
@@ -36,5 +47,12 @@ public class Store{
             entry.getKey().addAllProducts(productsToAdd);
         }
         return categoryIntegerMap;
+    }
+
+    public List<Product> getWholeProductList() {
+        return this.categoryIntegerMap.keySet().stream()
+                .map(Category::getProductList)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 }
