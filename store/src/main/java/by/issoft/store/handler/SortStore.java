@@ -21,9 +21,8 @@ public class SortStore extends AbstractHandler {
             StoreComparator filter = new StoreComparator();
             Store store = Store.getInstance();
             List<Product> productList = store.getWholeProductList();
-            parser.parseXml(PATH);
             System.out.println("Started sorting...");
-            filter.sortProducts(productList, parser.getTypeOrderMap());
+            filter.sortProducts(productList,parser.parseXml(PATH));
         } else super.handleRequest(request);
     }
 }

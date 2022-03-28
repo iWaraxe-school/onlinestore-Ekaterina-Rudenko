@@ -12,9 +12,6 @@ public class Category {
         this.productList = new ArrayList<>();
     }
 
-    public Category() {
-    }
-
     public String getName() {
         return name;
     }
@@ -23,11 +20,6 @@ public class Category {
         return productList;
     }
 
-    public void addProduct(Product product) {
-        if (product != null) {
-            this.productList.add(product);
-        }
-    }
 
     public void addAllProducts(List<Product> productList) {
         if (productList != null) {

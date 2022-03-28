@@ -1,6 +1,7 @@
 package by.issoft.store.helper;
 
 import by.issoft.domain.Category;
+import java.util.stream.Stream;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
@@ -14,23 +15,21 @@ public class StoreHelper {
     public static final String PACKAGE = "by.issoft.domain.categories";
     public static final int MAX_QUANTITY = 50;
 
-    public Map<Category, Integer> defineCategoriesAndQuantities() {
+    public  Map<Category, Integer> defineCategoriesAndQuantities() {
         Map<Category, Integer> categories = new HashMap<>();
+        Random random = new Random();
         Set<Class<? extends Category>> categorySubtypes = getCategorySubtypes();
         System.out.println("The following categories and numbers of products have been defined: ");
-        int counter = 0;
         for (Class<? extends Category> subtype : categorySubtypes) {
             try {
                 Category subCategory = subtype.getConstructor().newInstance();
-                Random random = new Random();
-                Integer quantity = random.nextInt(MAX_QUANTITY);
-                categories.put(subCategory, quantity);
-                System.out.println( ++counter + ". category name: " + subCategory.getName() + ", quantity: " + quantity);
+                categories.put(subCategory, random.nextInt(MAX_QUANTITY));
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 System.out.println("Failed to define subcategories" + e);
             }
         }
-        System.out.println();
+        Stream.of(categories).forEach(c -> c.entrySet()
+            .forEach(e -> System.out.println("Category name: " + e.getKey().getName() + ", quantity: " + e.getValue())));
         return categories;
     }
 
