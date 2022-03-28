@@ -18,7 +18,7 @@ public class RandomStorePopulator {
     public static List<Product> generateProductList(int quantity) {
         Faker faker = new Faker();
         List<Product> productList = new ArrayList<>();
-        for (int i = 0; i <= quantity; i++) {
+        for (int i = 0; i < quantity; i++) {
             Product product = new Product(faker.regexify(PRODUCT_NAME_REGEX));
             product.setRate(faker.number().randomDouble(PRECISION, MIN_RATE, MAX_RATE));
             product.setPrice(BigDecimal.valueOf(faker.number().randomDouble(PRECISION, MIN_PRICE, MAX_PRICE)));
