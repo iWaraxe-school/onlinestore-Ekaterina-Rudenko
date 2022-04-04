@@ -6,7 +6,8 @@ public class Runner {
         AbstractHandler quit = new QuitApp(null);
         AbstractHandler sort = new SortStore(quit);
         AbstractHandler top = new TopStore(sort);
+        AbstractHandler order = new ProcessOrder(top);
 
-        top.handleRequest(request);
+        order.handleRequest(request);
     }
 }
