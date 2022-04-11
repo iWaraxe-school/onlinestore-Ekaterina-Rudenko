@@ -26,6 +26,7 @@ public class ConsoleApp implements Application {
         Runner runner = new Runner();
         System.out.println("\n\nTo sort the store - enter \"sort\"");
         System.out.println("To select top 5 products - enter \"top\"");
+        System.out.println("To start order processing - enter \"order\"");
         System.out.println("To quit the app - enter \"quit\"");
         Scanner scanner = new Scanner(System.in);
         while (true){
