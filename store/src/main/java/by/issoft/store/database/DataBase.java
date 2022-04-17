@@ -106,7 +106,7 @@ public class DataBase {
     try (PreparedStatement statement = connection.prepareStatement(PRODUCT_SHOW_ALL_QUERY)) {
       ResultSet resultSet = statement.executeQuery();
       while (resultSet.next()) {
-        Product product = new Product(resultSet.getString(1), resultSet.getDouble(2), BigDecimal.valueOf(resultSet.getDouble(3)));
+        Product product = mapProduct(resultSet);
         productList.add(product);
       }
     } catch (SQLException e) {

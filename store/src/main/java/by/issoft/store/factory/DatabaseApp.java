@@ -6,6 +6,7 @@ import by.issoft.store.Store;
 import by.issoft.store.database.DataBase;
 import by.issoft.store.helper.RandomStorePopulator;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -37,9 +38,11 @@ public class DatabaseApp implements Application {
       System.out.println("Enter command: ");
       String command = scanner.next();
       if (command.equals("Bike") || command.equals("Milk") || command.equals("Phone")) {
-        dataBase.showStoreByCategory(command);
+        List<Product> products = dataBase.showStoreByCategory(command);
+        System.out.println(products);
       } else if (command.equals("All")) {
-        dataBase.showStore();
+        List<Product> products = dataBase.showStore();
+        System.out.println(products);
       } else if (command.equals("quit")) {
         System.exit(0);
       } else {
