@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Product {
     public final double MIN_RATE = 0;
     public final double MAX_RATE = 5;
-    private final String name;
+    private String name;
     private double rate;
     private BigDecimal price;
 
@@ -16,6 +16,9 @@ public class Product {
         this.name = name;
         this.rate = rate;
         this.price = price;
+    }
+
+    public Product() {
     }
 
     public Product(String name) {
@@ -30,6 +33,10 @@ public class Product {
     public void setPrice(BigDecimal price) {
         Preconditions.checkArgument(price.doubleValue() > 0, "Price must be positive value");
         this.price = price;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {

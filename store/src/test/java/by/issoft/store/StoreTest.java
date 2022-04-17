@@ -7,6 +7,7 @@ import by.issoft.domain.Product;
 import by.issoft.store.factory.AppFactory;
 import by.issoft.store.factory.AppType;
 import by.issoft.store.factory.Application;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -19,7 +20,7 @@ public class StoreTest {
   Application application;
 
   @BeforeTest
-  public void setUp() {
+  public void setUp() throws SQLException {
     store = Store.getInstance();
     application = AppFactory.getApplication(AppType.CONSOLE);
     application.fillStoreWithProducts(store);

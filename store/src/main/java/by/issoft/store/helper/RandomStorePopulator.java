@@ -16,14 +16,19 @@ public class RandomStorePopulator {
     private static final int MAX_RATE = 5;
 
     public static List<Product> generateProductList(int quantity) {
-        Faker faker = new Faker();
         List<Product> productList = new ArrayList<>();
         for (int i = 0; i < quantity; i++) {
-            Product product = new Product(faker.regexify(PRODUCT_NAME_REGEX));
-            product.setRate(faker.number().randomDouble(PRECISION, MIN_RATE, MAX_RATE));
-            product.setPrice(BigDecimal.valueOf(faker.number().randomDouble(PRECISION, MIN_PRICE, MAX_PRICE)));
+            Product product = generateProduct();
             productList.add(product);
         }
         return productList;
+    }
+
+    public static Product generateProduct(){
+        Faker faker = new Faker();
+        Product product = new Product(faker.regexify(PRODUCT_NAME_REGEX));
+        product.setRate(faker.number().randomDouble(PRECISION, MIN_RATE, MAX_RATE));
+        product.setPrice(BigDecimal.valueOf(faker.number().randomDouble(PRECISION, MIN_PRICE, MAX_PRICE)));
+        return product;
     }
 }
