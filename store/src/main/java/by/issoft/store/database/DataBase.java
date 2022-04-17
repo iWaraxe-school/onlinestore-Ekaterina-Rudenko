@@ -41,6 +41,10 @@ public class DataBase {
       SELECT (p_name, p_rate, p_price) FROM products""";
   private static final String PRODUCT_SHOW_BY_CATEGORY_QUERY = """
       SELECT (p_name, p_rate, p_price) FROM products WHERE c_name = ? """;
+  private static final String DROP_TABLE_PRODUCTS = """
+      DROP TABLE products""";
+  private static final String DROP_TABLE_CATEGORIES = """
+      DROP TABLE categories""";
 
   public Connection getConnection() {
     Connection connection = null;
@@ -134,11 +138,24 @@ public class DataBase {
     return productList;
   }
 
+  public void dropTables(){
+    Connection connection = getConnection();
+    try(Statement statement = connection.createStatement()){
+      statement.executeUpdate(DROP_TABLE_PRODUCTS);
+      statement.executeUpdate(DROP_TABLE_CATEGORIES);
+    } catch (SQLException e) {
+      System.out.println("Failed to delete tables.");
+      e.printStackTrace();
+    }
+  }
+
   private Product mapProduct(ResultSet resultSet) throws SQLException {
     Product product = new Product();
     product.setName(resultSet.getString(1));
-    product.setRate(resultSet.getDouble(2));
-    product.setPrice(BigDecimal.valueOf(resultSet.getDouble(3)));
+    System.out.println(product.getName());
+    //Doesn't parse the result set into parts by columns, but get the whole line
+    /*product.setRate(resultSet.getDouble(2));
+    product.setPrice(BigDecimal.valueOf(resultSet.getDouble(3)));*/
     return product;
   }
 
