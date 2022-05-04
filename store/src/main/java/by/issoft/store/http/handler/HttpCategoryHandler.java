@@ -15,14 +15,6 @@ public class HttpCategoryHandler extends HttpBasicHandler {
   @Override
   public void handle(HttpExchange exchange) throws IOException {
     try {
-      InputStreamReader input = new InputStreamReader(exchange.getRequestBody());
-      StringBuilder sb = new StringBuilder();
-      while (input.ready()) {
-        sb.append((char) input.read());
-      }
-      System.out.println(sb);
-
-
       URI uri = exchange.getRequestURI();
       String categoryName = HttpBasicHandler.parseQuery(uri);
       System.out.println("Category name: " + categoryName);
