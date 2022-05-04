@@ -7,11 +7,16 @@ import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class TimerCleaner {
-
+  final int delay;
+  final int period;
+ public TimerCleaner(int delay, int period){
+   this.delay = delay;
+   this.period = period;
+ }
 
   public void cleanPurchasedGoods() {
     Timer timer = new Timer(true);
-    timer.schedule(new Cleaner(), 5000, 10000 );
+    timer.schedule(new Cleaner(), delay, period );
   }
 
   public static class Cleaner extends TimerTask {

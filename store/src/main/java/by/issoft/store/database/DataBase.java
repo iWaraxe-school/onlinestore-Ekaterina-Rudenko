@@ -138,9 +138,9 @@ public class DataBase {
     return productList;
   }
 
-  public void dropTables(){
+  public void dropTables() {
     Connection connection = getConnection();
-    try(Statement statement = connection.createStatement()){
+    try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(DROP_TABLE_PRODUCTS);
       statement.executeUpdate(DROP_TABLE_CATEGORIES);
     } catch (SQLException e) {
@@ -150,12 +150,21 @@ public class DataBase {
   }
 
   private Product mapProduct(ResultSet resultSet) throws SQLException {
+    String regex = "[)(,]";
     Product product = new Product();
-    product.setName(resultSet.getString(1));
-    System.out.println(product.getName());
+    String wholeString = resultSet.getString(1).replaceAll(regex, "");
+    String[] array = wholeString.split(" ");
+    product.setName(array[1]);
+    product.setRate(Double.parseDouble(array[2]));
+    product.setPrice(new BigDecimal(array[3]));
+    System.out.println(product);
+
     //Doesn't parse the result set into parts by columns, but get the whole line
-    /*product.setRate(resultSet.getDouble(2));
-    product.setPrice(BigDecimal.valueOf(resultSet.getDouble(3)));*/
+/*  Product product = new Product();
+    product.setName(resultSet.getString("p_name"));
+    product.setRate(resultSet.getDouble("p_rate"));
+    product.setPrice(BigDecimal.valueOf(resultSet.getDouble("p_price")));
+    System.out.println(product);*/
     return product;
   }
 

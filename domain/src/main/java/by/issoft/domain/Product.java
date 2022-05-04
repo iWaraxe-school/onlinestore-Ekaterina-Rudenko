@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Product {
-    public final double MIN_RATE = 0;
-    public final double MAX_RATE = 5;
+    private static final double MIN_RATE = 0;
+    private static final double MAX_RATE = 5;
     private String name;
     private double rate;
     private BigDecimal price;

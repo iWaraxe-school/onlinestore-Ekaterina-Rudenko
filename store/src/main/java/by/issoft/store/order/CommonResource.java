@@ -8,6 +8,7 @@ public class CommonResource {
   public CommonResource (List<Product> productList){
     this.productList = productList;
   }
+
   public synchronized Product orderProduct(int i){
     Product product = productList.get(i);
     productList.remove(i);

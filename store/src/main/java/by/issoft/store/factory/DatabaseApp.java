@@ -5,6 +5,7 @@ import by.issoft.domain.Product;
 import by.issoft.store.Store;
 import by.issoft.store.database.DataBase;
 import by.issoft.store.helper.RandomStorePopulator;
+import by.issoft.store.helper.StoreHelper;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.Scanner;
@@ -14,8 +15,9 @@ public class DatabaseApp implements Application {
   DataBase dataBase = new DataBase();
 
   @Override
-  public void fillStoreWithProducts(Store store) throws SQLException {
-    Map<Category, Integer> categoryIntegerMap = store.getCategoryIntegerMap();
+  public void fillStoreWithProducts(Store store) {
+    StoreHelper storeHelper = new StoreHelper();
+    Map<Category, Integer> categoryIntegerMap = storeHelper.defineCategoriesAndQuantities();
     dataBase.createDbTables();
     for (Map.Entry<Category, Integer> entry : categoryIntegerMap.entrySet()) {
       dataBase.insertCategory(entry.getKey());
@@ -23,6 +25,7 @@ public class DatabaseApp implements Application {
         Product product = RandomStorePopulator.generateProduct();
         dataBase.insertProduct(product, entry.getKey());
       }
+      Store.getInstance().setCategoryList(entry.getKey());
     }
   }
 
