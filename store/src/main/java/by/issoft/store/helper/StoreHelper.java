@@ -1,6 +1,8 @@
 package by.issoft.store.helper;
 
 import by.issoft.domain.Category;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
@@ -38,5 +40,12 @@ public class StoreHelper {
         return reflections.getSubTypesOf(Category.class);
     }
 
-
+    private List<Category>  getCategories(){
+     Reflections  reflections = new Reflections(PACKAGE, new SubTypesScanner());
+     return reflections
+         .getSubTypesOf(Category.class)
+         .stream()
+         .map(cl -> new Category(cl.getName()))
+         .collect(Collectors.toList());
+    }
 }

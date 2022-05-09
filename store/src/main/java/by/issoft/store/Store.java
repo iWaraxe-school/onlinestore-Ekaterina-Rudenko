@@ -2,21 +2,19 @@ package by.issoft.store;
 
 import by.issoft.domain.Category;
 import by.issoft.domain.Product;
-import by.issoft.store.helper.StoreHelper;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Store{
 
     private static Store instance;
-    Map<Category, Integer> categoryIntegerMap;
+    List<Category> categoryList;
 
     private Store() {
-        StoreHelper storeHelper = new StoreHelper();
-        this.categoryIntegerMap = storeHelper.defineCategoriesAndQuantities();
+        this.categoryList = new ArrayList<>();
     }
 
     public static Store getInstance(){
@@ -25,25 +23,29 @@ public class Store{
         }
         return instance;
     }
-    public Map<Category, Integer> getCategoryIntegerMap(){
-        return categoryIntegerMap;
+    public List<Category> getCategoryList(){
+        return categoryList;
+    }
+
+    public <T extends Category> void setCategoryList(T category) {
+        categoryList.add(category);
     }
 
     public void showStoreInfo() {
-        for (Map.Entry<Category, Integer> entry : this.categoryIntegerMap.entrySet()) {
-            System.out.println("\nCategory: " + entry.getKey().getName() +
-                    ", quantity: " + entry.getValue().toString()
+        for (Category category : this.categoryList) {
+            System.out.println("\nCategory: " + category.getName() +
+                    ", quantity: " + category.getProductList().size()
                     + "\n--------------------------------"
                     + "\n\t\tNAME\t RATE\t PRICE\t"
                     + "\n--------------------------------");
-            for (Product product : entry.getKey().getProductList()) {
+            for (Product product : category.getProductList()) {
                 System.out.print(product);
             }
         }
     }
 
     public List<Product> getWholeProductList() {
-        return this.categoryIntegerMap.keySet().stream()
+        return this.categoryList.stream()
                 .map(Category::getProductList)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());

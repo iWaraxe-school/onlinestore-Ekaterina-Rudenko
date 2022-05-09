@@ -7,6 +7,7 @@ import by.issoft.domain.Product;
 import by.issoft.store.factory.AppFactory;
 import by.issoft.store.factory.AppType;
 import by.issoft.store.factory.Application;
+import by.issoft.store.helper.StoreHelper;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -28,11 +29,11 @@ public class StoreTest {
 
   @Test
   public void getWholeProductListTest() {
-    Map<Category, Integer> categoryIntegerMap = store.getCategoryIntegerMap();
+    List<Category> categoryList = store.getCategoryList();
     List<Product> actualProductList = store.getWholeProductList();
-    int expextedSize = categoryIntegerMap
-        .values().stream()
-        .mapToInt(i -> i.intValue())
+    int expextedSize = categoryList
+        .stream()
+        .mapToInt(i -> i.getProductList().size())
         .sum();
     assertEquals(actualProductList.size(), expextedSize);
   }
